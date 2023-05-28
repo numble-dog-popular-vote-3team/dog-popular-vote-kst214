@@ -12,22 +12,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * com.vote.dog.dogvote.dto
- * ㄴ RestResponsePage
- *
- * <pre>
- * description :
- * </pre>
- *
- * <pre>
- * <b>History:</b>
- *  george, 1.0, 2023/05/27  초기작성
- * </pre>
- *
- * @author george
- * @version 1.0
- */
 
 @JsonIgnoreProperties(ignoreUnknown = true,value = {"pageable"})
 public class RestResponsePage<T> extends PageImpl<T>

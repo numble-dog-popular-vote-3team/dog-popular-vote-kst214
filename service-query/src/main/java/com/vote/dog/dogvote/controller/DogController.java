@@ -21,22 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * com.vote.dog.dogvote.controller
- * ㄴ TestController
- *
- * <pre>
- * description :
- * </pre>
- *
- * <pre>
- * <b>History:</b>
- *  george, 1.0, 2023/05/18  초기작성
- * </pre>
- *
- * @author george
- * @version 1.0
- */
+
 @Controller
 @RequiredArgsConstructor
 public class DogController

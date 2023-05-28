@@ -12,22 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * com.vote.dog.dogvote.controller
- * ㄴ TestController
- *
- * <pre>
- * description :
- * </pre>
- *
- * <pre>
- * <b>History:</b>
- *  george, 1.0, 2023/05/18  초기작성
- * </pre>
- *
- * @author george
- * @version 1.0
- */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")

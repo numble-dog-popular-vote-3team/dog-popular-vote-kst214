@@ -18,22 +18,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 
-/**
- * com.vote.dog.dogvote.config
- * ㄴ RedisConfig
- *
- * <pre>
- * description :
- * </pre>
- *
- * <pre>
- * <b>History:</b>
- *  george, 1.0, 2023/05/18  초기작성
- * </pre>
- *
- * @author george
- * @version 1.0
- */
+
 @Configuration
 @EnableCaching
 

@@ -15,22 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 
-/**
- * com.vote.dog.dogvote.service
- * ㄴ KafKaSubService
- *
- * <pre>
- * description :
- * </pre>
- *
- * <pre>
- * <b>History:</b>
- *  george, 1.0, 2023/05/21  초기작성
- * </pre>
- *
- * @author george
- * @version 1.0
- */
+
 @Service
 @RequiredArgsConstructor
 public class KafKaSubService

@@ -31,22 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * com.vote.dog.dogvote.service
- * ㄴ DogService
- *
- * <pre>
- * description :
- * </pre>
- *
- * <pre>
- * <b>History:</b>
- *  george, 1.0, 2023/05/19  초기작성
- * </pre>
- *
- * @author george
- * @version 1.0
- */
+
 @Service
 @RequiredArgsConstructor
 public class DogService

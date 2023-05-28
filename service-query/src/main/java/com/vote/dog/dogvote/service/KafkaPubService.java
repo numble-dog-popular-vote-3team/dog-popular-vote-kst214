@@ -11,22 +11,6 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
 
-/**
- * com.vote.dog.dogvote.service
- * ㄴ KafakaPubService
- *
- * <pre>
- * description :
- * </pre>
- *
- * <pre>
- * <b>History:</b>
- *  george, 1.0, 2023/05/21  초기작성
- * </pre>
- *
- * @author george
- * @version 1.0
- */
 
 @Service
 @RequiredArgsConstructor

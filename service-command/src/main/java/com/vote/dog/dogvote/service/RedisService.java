@@ -14,22 +14,7 @@ import org.thymeleaf.util.ObjectUtils;
 import javax.persistence.Cache;
 import javax.persistence.EntityNotFoundException;
 
-/**
- * com.vote.dog.dogvote.service
- * ㄴ test
- *
- * <pre>
- * description :
- * </pre>
- *
- * <pre>
- * <b>History:</b>
- *  george, 1.0, 2023/05/28  초기작성
- * </pre>
- *
- * @author george
- * @version 1.0
- */
+
 
 @Service
 @RequiredArgsConstructor
