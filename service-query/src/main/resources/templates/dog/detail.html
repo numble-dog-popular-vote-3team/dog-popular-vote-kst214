@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dog List</title>
+</head>
+
+<style>
+
+    li.active {
+        background-color: #f0f0f0;
+    }
+
+    .dog-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* 좋아요 버튼 스타일 */
+    .like-button {
+        display: inline-block;
+        padding: 6px 12px;
+        background-color: white;
+        color: black;
+        border: 1px solid #000;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .like-button:hover {
+        background-color: gray;
+    }
+
+    .like-button:focus {
+        outline: none;
+    }
+
+    .like-button.like-active {
+        background-color: blue;
+        color: white;
+
+    }
+
+    .like-button.like-active:hover {
+        background-color: #007bff;
+    }
+
+    table {
+        border-collapse: collapse; /* 테이블 셀 경계를 병합하여 보더가 겹치지 않도록 설정 */
+        width: 100%; /* 테이블의 전체 너비를 100%로 설정 */
+    }
+
+    th, td {
+        border: 1px solid black; /* 테이블 셀에 1px 두께의 검은색 보더 적용 */
+        padding: 8px; /* 셀 내부 여백 설정 */
+    }
+    </style>
+
+
+
+<body>
+<h1>Dog 상세 정보</h1>
+
+<div>
+    <strong>ID:</strong> <span th:text="${dog.id}"></span>
+</div>
+<div>
+    <strong>Name:</strong> <span th:text="${dog.name}"></span>
+</div>
+<div>
+    <strong>Description:</strong> <span th:text="${dog.description}"></span>
+</div>
+<div>
+    <strong>Image:</strong> <img th:src="@{/images/__${dog.image}__.png}" alt="Dog Image" width="200" height="200" />
+
+</div>
+<div>
+    <strong>Count:</strong> <span th:text="${dog.count}"></span>
+<br>
+        <span th:id='|like-count-${dog.id}|'>[[${dog.count}]]</span>
+        <a class="like-button" th:id='|like-id-${dog.id}|' th:onclick="|javascript:voting('${dog.id}')|">좋아요</a>
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<a href="/dog">리스트로</a>
+</body>
+
+<script>
+
+
+
+    postVote = (dogId, voteType) => {
+
+
+        // 현재 값 가져오기
+
+        let currentCount = document.querySelector("#like-count-" + dogId).innerText;
+        let newCount = 0;
+        if (voteType == "VOTE") {
+            newCount = parseInt(currentCount) + 1;
+        } else {
+            newCount = parseInt(currentCount) - 1;
+        }
+        document.querySelector("#like-count-" + dogId).innerText = newCount;
+
+
+        //const url = 'http://118.67.135.149/post'; // 요청을 보낼 URL
+        const url = window.location.origin +'/api/vote'; // 요청을 보낼 URL
+        const data = {
+            dogId: dogId,
+            voteType: voteType
+        }; // 전송할 데이터
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // 요청 헤더에 JSON 형식임을 명시
+            },
+            body: JSON.stringify(data) // 데이터를 JSON 문자열로 변환하여 요청 본문에 포함
+        })
+            .then(response => response.json()) // 응답 데이터를 JSON 형식으로 파싱
+            .then(result => {
+                // 응답 처리 로직 작성
+                console.log(result); // 응답 결과 출력
+
+
+            })
+            .catch(error => {
+                // 오류 처리 로직 작성
+                console.error('Error:', error);
+            });
+    }
+
+
+    voting = (dogId) => {
+
+        let like_arr = JSON.parse(localStorage.getItem('like_arr'));
+
+
+        console.log("id : " + dogId);
+        console.log("like_arr : " + like_arr);
+
+
+        if (like_arr == null) {
+            console.log('여기 1')
+            localStorage.setItem('like_arr', JSON.stringify([dogId]));
+            document.querySelector("#like-id-" + dogId).classList.add('like-active');
+            postVote(dogId, "VOTE");
+
+        } else if (like_arr.indexOf(dogId) > -1) {
+            console.log('여기 취소2')
+            like_arr = like_arr.filter(item => item !== dogId);
+            localStorage.setItem('like_arr', JSON.stringify(like_arr));
+            document.querySelector("#like-id-" + dogId).classList.remove('like-active');
+            postVote(dogId, "CANCEL_VOTE");
+
+            // 취소 로직
+            //alert('취소했습니다.');
+        } else {
+            console.log('여기 좋아욥3')
+            // 좋아요 로직
+            console.log("typeof like_arr");
+            console.log(typeof like_arr);
+            like_arr.push(dogId);
+            localStorage.setItem('like_arr', JSON.stringify(like_arr));
+
+            // 버튼 스타일 변경
+            document.querySelector("#like-id-" + dogId).classList.add('like-active');
+            postVote(dogId, "VOTE");
+
+            // 메시지 표시
+            //alert('좋아요를 눌렀습니다.');
+        }
+
+    }
+
+
+    // 페이지 로드 시 좋아요 상태 확인
+    window.addEventListener('load', function () {
+        let like_arr = JSON.parse(localStorage.getItem('like_arr'));
+        if (like_arr != null) {
+            for (let i = 0; i < like_arr.length; i++) {
+
+                let dogId = like_arr[i];
+
+                if (document.getElementById("like-id-" + dogId)) {
+                    document.querySelector("#like-id-" + dogId).classList.add('like-active');
+                    console.log("해당 객체 존재함");
+                } else {
+                    console.log("해당 객체 존재안함");
+                }
+            }
+        }
+    });
+</script>
+</html>

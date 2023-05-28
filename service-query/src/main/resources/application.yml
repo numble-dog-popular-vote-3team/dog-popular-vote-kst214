@@ -1,0 +1,88 @@
+#????
+server:
+  port: 8086
+
+#profiles
+spring:
+  redis:
+    host: 118.67.129.217
+    port: 6379
+    password: 1234
+
+  cache:
+    type: redis
+    redis:
+      cache-null-values: true
+
+  kafka:
+    bootstrap-servers:
+      - 118.67.129.217:9092
+
+    producer:
+      # producer bootstrap servers가 따로 존재하면 설정
+      # bootstrap-servers: 3.34.97.97:9092
+
+      # 데이터를 보낼 때, key/value를 직렬화
+      # JSON 데이터를 보낼 것이라면 JsonDeserializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+    consumer:
+      group-id: group-id-dog
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:templates/
+    check-template-location: true
+    suffix: .html
+    mode: html
+  mvc:
+    resources:
+      static-locations: classpath:/static/
+  datasource:
+    url: jdbc:mysql://118.67.129.217:3306/dog?useSSL=false&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    hikari:
+      pool-name: HikariCP
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 60000
+      connection-timeout: 3000
+      connection-test-query: SELECT   1
+      auto-commit: true
+      connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci
+    username: root
+    password: 1234
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database: mysql
+#????
+logging:
+  level:
+    root: INFO
+    org:
+      hibernate:
+        SQL: DEBUG
+        type: TRACE
+        orm:
+          jdbc:
+            bind: TRACE
+            extract: TRACE
+    com: INFO
+    #expire sessions StandardManager log ???? ??
+    org.apache.catalina.session.ManagerBase: INFO
+

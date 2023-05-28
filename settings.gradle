@@ -1,0 +1,3 @@
+rootProject.name = 'dogVote'
+include('service-command')
+include('service-query')
